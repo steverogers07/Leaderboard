@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+    <title>IPL Event Leaderboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e3f2fd;
+            color: #333;
+        }
+        .header {
+            padding: 10px 20px;
+            background-color: #004d40;
+            color: white;
+        }
+        h1 {
+            text-align: center;
+        }
+        #leaderboard {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            text-align: left;
+            padding: 12px;
+        }
+        tr:nth-child(even) {
+            background-color: #bbdefb;
+        }
+        th {
+            background-color: #1a237e;
+            color: white;
+        }
+        .footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #004d40;
+            color: white;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>IPL Event Leaderboard</h1>
+    </div>
+    <div id="leaderboard">
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Points</th>
+                    <th>Rank</th>
+                </tr>
+            </thead>
+            <tbody id="leaderboard-body">
+                <!-- Leaderboard rows will be inserted here -->
+            </tbody>
+        </table>
+    </div>
+    <div class="footer">
+        <p>2024 IPL Event Office Leaderboard</p>
+    </div>
+    <script>
+        fetch('https://docs.google.com/spreadsheets/u/1/d/e/2PACX-1vQPttCis4Hpih4WRTKdYvxqXbIBUEcRZqeN0pjjcPUs5BBR0eTeA_HD95UDclXvCE94FGzZezeSBCpt/pub?gid=1214876576&single=true&output=csv')
+        .then(response => response.text())
+        .then(csvText => {
+            const rows = csvText.split('\n');
+            let htmlContent = '';
+            rows.forEach((row, index) => {
+                const [name, points, rank] = row.split(',');
+                htmlContent += `<tr><td>${name}</td><td>${points}</td><td>${rank}</td></tr>`;
+            });
+            document.getElementById('leaderboard-body').innerHTML = htmlContent;
+        })
+        .catch(error => console.error('Error fetching data:', error));
+    </script>
+</body>
+</html>
