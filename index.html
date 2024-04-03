@@ -98,7 +98,7 @@
     rows.forEach((row, index) => {
         const [name, points, rank] = row.split(',');
         if (rank.trim() === "1") { // Check if the rank is 1
-            htmlContent += `<tr><td>${name}</td><td>${points}</td><td><img src="https://images.unsplash.com/photo-1579338559194-a162d19bf842?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" alt="Throne for Rank 1" style="width:50px;height:auto;"></td></tr>`;
+            htmlContent += `<tr><td>${name}</td><td>${points}</td><td>👑</td></tr>`; // Using an emoji for rank 1
         } else {
             htmlContent += `<tr><td>${name}</td><td>${points}</td><td>${rank}</td></tr>`;
         }
@@ -106,6 +106,7 @@
     document.getElementById('leaderboard-body').innerHTML = htmlContent;
 })
 .catch(error => console.error('Error fetching data:', error));
+
     </script>
 </body>
 </html>
