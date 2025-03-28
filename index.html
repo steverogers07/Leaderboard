@@ -109,7 +109,7 @@
 // })
 // .catch(error => console.error('Error fetching data:', error));
 
-        fetch('https://docs.google.com/spreadsheets/u/1/d/e/2PACX-1vRtM-azApiPLCogn4pfL0V763dmavyxPU5hBVtEPT0-zkT4LemFjtpJnAO9Bi3q1okX38GmW64OIxsP/pubhtml?gid=2109586128&single=true')
+        fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vRtM-azApiPLCogn4pfL0V763dmavyxPU5hBVtEPT0-zkT4LemFjtpJnAO9Bi3q1okX38GmW64OIxsP/pub?gid=2109586128&single=true&output=csv')
 .then(response => response.text())
 .then(csvText => {
     const rows = csvText.split('\n');
