@@ -78,37 +78,6 @@
         <p>&copy; 2025 Divyansh. All rights reserved.</p>
     </div>
     <script>
-        // fetch('https://docs.google.com/spreadsheets/u/1/d/e/2PACX-1vQPttCis4Hpih4WRTKdYvxqXbIBUEcRZqeN0pjjcPUs5BBR0eTeA_HD95UDclXvCE94FGzZezeSBCpt/pub?gid=1214876576&single=true&output=csv')
-        // .then(response => response.text())
-        // .then(csvText => {
-        //     const rows = csvText.split('\n');
-        //     let htmlContent = '';
-        //     rows.forEach((row, index) => {
-        //         const [name, points, rank] = row.split(',');
-        //         htmlContent += `<tr><td>${name}</td><td>${points}</td><td>${rank}</td></tr>`;
-        //     });
-        //     document.getElementById('leaderboard-body').innerHTML = htmlContent;
-        // })
-        // .catch(error => console.error('Error fetching data:', error));
-        
-//         fetch('https://docs.google.com/spreadsheets/u/1/d/e/2PACX-1vQPttCis4Hpih4WRTKdYvxqXbIBUEcRZqeN0pjjcPUs5BBR0eTeA_HD95UDclXvCE94FGzZezeSBCpt/pub?gid=1214876576&single=true&output=csv')
-// .then(response => response.text())
-// .then(csvText => {
-//     const rows = csvText.split('\n');
-//     let htmlContent = '';
-//     rows.forEach((row, index) => {
-//         const [name, points, rank] = row.split(',');
-//         if (rank.trim() === "1") {
-//             // Increase the size of the emoji for rank 1
-//             htmlContent += `<tr><td>${name}</td><td>${points}</td><td><span style='font-size:24px;'>👑</span></td></tr>`;
-//         } else {
-//             htmlContent += `<tr><td>${name}</td><td>${points}</td><td>${rank}</td></tr>`;
-//         }
-//     });
-//     document.getElementById('leaderboard-body').innerHTML = htmlContent;
-// })
-// .catch(error => console.error('Error fetching data:', error));
-
         fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vRtM-azApiPLCogn4pfL0V763dmavyxPU5hBVtEPT0-zkT4LemFjtpJnAO9Bi3q1okX38GmW64OIxsP/pub?gid=2109586128&single=true&output=csv')
 .then(response => response.text())
 .then(csvText => {
@@ -126,8 +95,6 @@
     document.getElementById('leaderboard-body').innerHTML = htmlContent;
 })
 .catch(error => console.error('Error fetching data:', error));
-
-
     </script>
 </body>
 </html>
