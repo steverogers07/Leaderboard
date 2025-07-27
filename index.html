@@ -1,51 +1,132 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Wedding Gift Registry</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+    <title>IPL Event Leaderboard</title>
     <style>
-        body { font-family: Arial, sans-serif; padding: 20px; }
-        table { border-collapse: collapse; width: 100%; margin-top: 20px; }
-        th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
-        th { background-color: #f4f4f4; }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e3f2fd;
+            color: #333;
+        }
+        .header {
+            padding: 10px 20px;
+            background-color: #004d40;
+            color: white;
+            text-align: center;
+        }
+        #leaderboard {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            text-align: left;
+            padding: 12px;
+            color: #000;
+            font-weight: bold;
+        }
+        tr:nth-child(even) {
+            background-color: #bbdefb;
+        }
+        th {
+            background-color: #1a237e;
+            color: white;
+        }
+        .footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #004d40;
+            color: white;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+        /* Updated Button Styling */
+        .toggle-buttons {
+            display: flex;
+            justify-content: center; /* Center buttons */
+            gap: 10px; /* Space between buttons */
+            margin-top: 20px;
+        }
+        .toggle-buttons button {
+            padding: 8px 16px; /* Smaller padding */
+            font-size: 14px; /* Smaller text size */
+            cursor: pointer;
+            background-color: #1a237e;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            width: auto; /* Auto-adjust width */
+        }
     </style>
 </head>
 <body>
-    <h1>Wedding Gift Items List</h1>
-    <p>This table lists who is giving what for my sister's wedding.</p>
-    <table id="gift-table">
-        <thead>
-            <tr>
-                <th>Item</th>
-                <th>Giver</th>
-            </tr>
-        </thead>
-        <tbody>
-        </tbody>
-    </table>
+    <div class="header">
+        <h1 id="event-title">IPL 2025 Leaderboard</h1>
+    </div>
+
+    <div id="leaderboard">
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Points</th>
+                    <th>Rank</th>
+                </tr>
+            </thead>
+            <tbody id="leaderboard-body">
+                <!-- Leaderboard rows will be inserted here -->
+            </tbody>
+        </table>
+    </div>
+
+    <div class="toggle-buttons">
+        <button onclick="loadLeaderboard('ipl2024')">IPL 2024</button>
+        <button onclick="loadLeaderboard('ipl2025')">IPL 2025</button>
+    </div>
+
+    <div class="footer">
+        <p>2025 IPL Event Office Leaderboard</p>
+        <p>&copy; 2025 Divyansh. All rights reserved.</p>
+    </div>
 
     <script>
-        const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQcW_gfIyn4K2B3T7SpFAlXSNyjtHT5A3op-QQPva2wqqEVj72fJWx1POBMy_LPgJ0v2vP5xlceKOe0/pub?output=csv';
+        const sheets = {
+            'ipl2025': 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRtM-azApiPLCogn4pfL0V763dmavyxPU5hBVtEPT0-zkT4LemFjtpJnAO9Bi3q1okX38GmW64OIxsP/pub?gid=2109586128&single=true&output=csv',
+            'ipl2024': 'https://docs.google.com/spreadsheets/u/1/d/e/2PACX-1vQPttCis4Hpih4WRTKdYvxqXbIBUEcRZqeN0pjjcPUs5BBR0eTeA_HD95UDclXvCE94FGzZezeSBCpt/pub?gid=1214876576&single=true&output=csv' // Change this to IPL 2024 Sheet URL
+        };
 
-        fetch(csvUrl)
-            .then(response => response.text())
-            .then(data => {
-                const rows = data.trim().split('\\n');
-                const tbody = document.querySelector('#gift-table tbody');
-                rows.slice(1).forEach(row => {
-                    const cols = row.split(',');
-                    const tr = document.createElement('tr');
-                    cols.forEach(col => {
-                        const td = document.createElement('td');
-                        td.textContent = col;
-                        tr.appendChild(td);
+        function loadLeaderboard(year) {
+            fetch(sheets[year])
+                .then(response => response.text())
+                .then(csvText => {
+                    const rows = csvText.split('\n');
+                    let htmlContent = '';
+                    rows.forEach((row, index) => {
+                        const [name, points, rank] = row.split(',');
+                        if (name.trim() === "Divyansh" && rank.trim() === "1") {
+                            htmlContent += `<tr><td>${name}</td><td>${points}</td><td><span style='font-size:24px;'>👑</span></td></tr>`;
+                        } else {
+                            htmlContent += `<tr><td>${name}</td><td>${points}</td><td>${rank}</td></tr>`;
+                        }
                     });
-                    tbody.appendChild(tr);
-                });
-            })
-            .catch(error => {
-                console.error('Error loading CSV:', error);
-            });
+                    document.getElementById('leaderboard-body').innerHTML = htmlContent;
+                    document.getElementById('event-title').innerText = year === 'ipl2025' ? "IPL 2025 Leaderboard" : "IPL 2024 Leaderboard";
+                })
+                .catch(error => console.error('Error fetching data:', error));
+        }
+
+        // Load IPL 2025 by default
+        loadLeaderboard('ipl2025');
     </script>
 </body>
 </html>
